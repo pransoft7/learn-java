@@ -1,4 +1,7 @@
+package com.bank.account;
 import java.util.ArrayList;
+
+import com.bank.transaction.Transaction;
 
 public class BankAccount {
     private int acc_number;
@@ -12,7 +15,7 @@ public class BankAccount {
         this.balance = balance;
         this.transactions = new ArrayList<>();
         if (balance > 0) {
-            transactions.add(new Transaction(balance, Transaction.txn_type.CREDIT));
+            transactions.add(new Transaction(balance, Transaction.txn_type.DEPOSIT));
         }
     }
 
@@ -21,15 +24,20 @@ public class BankAccount {
     }
 
     public void getTransactions(int count) {
+        // Last n transactions
         for (int i = transactions.size() - count; i < transactions.size(); i++) {
             System.out.println(transactions.get(i).viewTransaction());
         }
+        // ALL
+        // for (Transaction transaction : transactions) {
+        //     System.out.println(transaction.viewTransaction());
+        // }
     }
 
     public void deposit(double amount) {
         if (amount > 0) {
             balance += amount;
-            transactions.add(new Transaction(amount, Transaction.txn_type.CREDIT));
+            transactions.add(new Transaction(amount, Transaction.txn_type.DEPOSIT));
             System.out.println("$" + amount + " credited successfully!");
         } else System.out.println("Invalid Input");
     }
@@ -38,10 +46,9 @@ public class BankAccount {
         if (amount > 0) {
             if (amount < balance) {
                 balance -= amount;
-                transactions.add(new Transaction(amount, Transaction.txn_type.DEBIT));
+                transactions.add(new Transaction(amount, Transaction.txn_type.WITHDRAWAL));
                 System.out.println("$" + amount + " debited successfully!");
             } else System.out.println("Insufficient Funds!");
         } else System.out.println("Enter +ve money!");
     }
-
 }

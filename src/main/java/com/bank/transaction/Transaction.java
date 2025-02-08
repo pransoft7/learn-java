@@ -1,8 +1,9 @@
+package com.bank.transaction;
 import java.time.LocalDateTime;
 
 public class Transaction {
     public enum txn_type {
-        CREDIT, DEBIT
+        DEPOSIT, WITHDRAWAL, TRANSFER
     }
 
     private LocalDateTime date_time;
